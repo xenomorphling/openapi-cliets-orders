@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
     title: Clients-Orders
-    version: 1.0.0
+    version: 1.0.1
     description: |-
         Работа с клиентами
 
@@ -30,20 +30,23 @@ info:
         6. при создании заказа не указаны данные заказа которые передаются для этого
         
         7. при редактировании заказа не указыватся данные которые редактируются
+
+        fixes:
+        1. Исправлено единственное число в именовании на множественное
         
     contact:
         email: ymatsyuk@luxoft.com
 paths:
-    /client:
+    /clients:
         post:
             tags:
-                - client
+                - clients
             parameters:
                 -
                     name: body
-                    description: Client object
+                    description: Clients object
                     schema:
-                        $ref: '#/definitions/Client'
+                        $ref: '#/definitions/Clients'
                     in: body
                     required: true
             responses:
@@ -55,10 +58,10 @@ paths:
             produces:
                 - application/xml
                 - application/json
-    '/client/{username}':
+    '/clients/{username}':
         get:
             tags:
-                - client
+                - clients
             parameters:
                 -
                     name: login
@@ -70,20 +73,20 @@ paths:
                 '200':
                     description: successful operation
                     schema:
-                        $ref: '#/definitions/Client'
+                        $ref: '#/definitions/Clients'
                 '400':
                     description: Invalid login supplied
                 '404':
                     description: Login not found
-            operationId: getClientByName
-            summary: Get client by client name
+            operationId: getClientsByName
+            summary: Get clients by client name
             description: ''
             produces:
                 - application/xml
                 - application/json
         put:
             tags:
-                - client
+                - clients
             parameters:
                 -
                     name: login
@@ -95,7 +98,7 @@ paths:
                     name: body
                     description: Updated client login object
                     schema:
-                        $ref: '#/definitions/Client'
+                        $ref: '#/definitions/Clients'
                     in: body
                     required: true
             responses:
@@ -130,10 +133,10 @@ paths:
             produces:
                 - application/xml
                 - application/json
-    /client/create:
+    /clients/create:
         post:
             tags:
-                - client
+                - clients
             parameters:
                 -
                     name: body
@@ -141,7 +144,7 @@ paths:
                     schema:
                         type: array
                         items:
-                            $ref: '#/definitions/Client'
+                            $ref: '#/definitions/Clients'
                     in: body
                     required: true
             responses:
@@ -153,10 +156,10 @@ paths:
             produces:
                 - application/xml
                 - application/json
-    /client/login:
+    /clients/login:
         get:
             tags:
-                - client
+                - clients
             parameters:
                 -
                     name: login
@@ -188,7 +191,7 @@ paths:
             produces:
                 - application/xml
                 - application/json
-    /client/logout:
+    /clients/logout:
         get:
             tags:
                 - client
@@ -317,7 +320,7 @@ tags:
         name: order
         description: Access to orders
     -
-        name: client
+        name: clients
         description: Operations about user
 schemes:
     - https
@@ -369,7 +372,7 @@ definitions:
                 type: string
         xml:
             name: Category
-    Client:
+    Clients:
         type: object
         properties:
             id:
@@ -392,7 +395,7 @@ definitions:
                 format: int32
                 description: User Status
         xml:
-            name: Client
+            name: Clients
     Tag:
         type: object
         properties:
