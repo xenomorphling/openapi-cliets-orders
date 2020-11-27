@@ -23,7 +23,6 @@ info:
 
         1. В названиях ресурсов (например /order) не используются лучшие практики.
         2. при создании клиента не передается ничего, ни id ни логина ни имени, не указан код ответа.
-        
         3. при получении данных клиента не указаны какие данные о нем получаем.
         4. при обновлении клиента не указано какие поля обновляем
         5. в работе с заказами указано задание "отмена заказа" а не удаление.
@@ -135,24 +134,24 @@ paths:
                 - application/json
     /clients/create:
         post:
-            tags:
-                - clients
-            parameters:
-                -
-                    name: body
-                    description: List of clients
-                    schema:
-                        type: array
-                        items:
-                            $ref: '#/definitions/Clients'
-                    in: body
-                    required: true
+            requestBody:
+                description: Add client
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AddClient'
+                required: true
             responses:
                 default:
                     description: successful operation
-            operationId: createClientWithArrayInput
-            summary: Creates list of clients with given input array
-            description: ''
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Client'
+                    description: response
+            operationId: addClient
+            description: Adds a client
             produces:
                 - application/xml
                 - application/json
