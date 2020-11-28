@@ -49,7 +49,8 @@ info:
                     in: body
                     required: true
         5. Добавлено изменение статуса заказа на "Cancelled"
-        6. 
+        6. Добавлены параметры в post заказа
+        7. Добавлены параметры в put заказа
             
         
     contact:
@@ -240,12 +241,28 @@ paths:
                 - order
             parameters:
                 -
+                    name: orderId
+                    description: ID of order
+                    in: path
+                    required: true
+                    type: integer
+                    maximum: 10
+                    minimum: 1
+                    format: int64
+                -
                     name: body
                     description: order placed
                     schema:
                         $ref: '#/definitions/Order'
                     in: body
                     required: true
+                -
+                    name: status
+                    description: status of order
+                    in: body
+                    schema:
+                        $ref: '#/definitions/Order'
+                    required: false
             responses:
                 '200':
                     description: successful operation
