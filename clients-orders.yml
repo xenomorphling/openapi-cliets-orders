@@ -27,11 +27,30 @@ info:
         4. при обновлении клиента не указано какие поля обновляем
         5. в работе с заказами указано задание "отмена заказа" а не удаление.
         6. при создании заказа не указаны данные заказа которые передаются для этого
-        
         7. при редактировании заказа не указыватся данные которые редактируются
 
         fixes:
         1. Исправлено единственное число в именовании на множественное
+        2. Исправлено создание клиента, добавлен код ответа
+        3. Добавлен content в код ответа запроса о клиенте
+        4. При обновлении указано 
+                parameters:
+                -
+                    name: login
+                    description: name that need to be updated
+                    in: path
+                    required: true
+                    type: string
+                -
+                    name: body
+                    description: Updated client login object
+                    schema:
+                        $ref: '#/definitions/Clients'
+                    in: body
+                    required: true
+        5. Добавлено изменение статуса заказа на "Cancelled"
+        6. 
+            
         
     contact:
         email: ymatsyuk@luxoft.com
@@ -70,7 +89,11 @@ paths:
                     type: string
             responses:
                 '200':
-                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Client'
+                    description: Username response
                     schema:
                         $ref: '#/definitions/Clients'
                 '400':
@@ -150,6 +173,14 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/Client'
                     description: response
+                                    default:
+                    description: successful operation
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Client'
+                    description: bad request
             operationId: addClient
             description: Adds a client
             produces:
@@ -276,6 +307,13 @@ paths:
                         $ref: '#/definitions/Order'
                     in: body
                     required: true
+                -   
+                    name: status
+                    description: status of order
+                    in: body
+                    schema:
+                        $ref: '#/definitions/Order'
+                    required: false
             responses:
                 '400':
                     description: Invalid orderID supplied
@@ -356,6 +394,7 @@ definitions:
                     - placed
                     - approved
                     - delivered
+                    - cancelled
             complete:
                 type: boolean
                 default: false
