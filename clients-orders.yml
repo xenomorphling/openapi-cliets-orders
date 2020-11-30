@@ -369,6 +369,29 @@ paths:
             produces:
                 - application/xml
                 - application/json
+components:
+    schemas:
+        Client:
+            allOf:
+                -
+                    $ref: '#/components/schemas/Client'
+                -
+                    required:
+                        - id
+                    properties:
+                        id:
+                            format: int64
+                            type: integer
+        Error:
+            required:
+                - code
+                - message
+            properties:
+                code:
+                    format: int32
+                    type: integer
+                message:
+                    type: string
 tags:
     -
         name: order
