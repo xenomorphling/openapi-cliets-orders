@@ -52,7 +52,11 @@ info:
         6. Добавлены параметры в post заказа
         7. Добавлены параметры в put заказа
             
+        для клиента указаны два метода использующих GET. Второй из них, Logs client into the system, нужен ли? А вот реализации удаления клиента нет, хотя в задании есть "удаление клиента".
+        В заказах задание "отмена заказа" реализовано через метод DELETE, правильно ли это?
+
         
+
     contact:
         email: ymatsyuk@luxoft.com
 paths:
@@ -182,54 +186,6 @@ paths:
                     description: bad request
             operationId: addClient
             description: Adds a client
-            produces:
-                - application/xml
-                - application/json
-    /clients/login:
-        get:
-            tags:
-                - clients
-            parameters:
-                -
-                    name: login
-                    description: The client name for login
-                    in: query
-                    required: true
-                    type: string
-                -
-                    name: password
-                    description: The password for login in clear text
-                    in: query
-                    required: true
-                    type: string
-            responses:
-                '200':
-                    headers:
-                        X-Rate-Limit:
-                            description: calls per hour allowed by the user
-                        X-Expires-After:
-                            description: date in UTC when token expires
-                    description: successful operation
-                    schema:
-                        type: string
-                '400':
-                    description: Invalid username/password supplied
-            operationId: loginClient
-            summary: Logs client into the system
-            description: ''
-            produces:
-                - application/xml
-                - application/json
-    /clients/logout:
-        get:
-            tags:
-                - client
-            responses:
-                default:
-                    description: successful operation
-            operationId: logoutClient
-            summary: Logs out current logged in client session
-            description: ''
             produces:
                 - application/xml
                 - application/json
