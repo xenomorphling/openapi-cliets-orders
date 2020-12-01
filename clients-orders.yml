@@ -93,7 +93,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Client'
+                                $ref: '#/definitions/Clients'
                     description: Username response
                     schema:
                         $ref: '#/definitions/Clients'
@@ -163,7 +163,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/AddClient'
+                            $ref: '#/definitions/Clients'
                 required: true
             responses:
                 default:
@@ -172,15 +172,13 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Client'
+                                $ref: '#/definitions/Clients'
                     description: response
-                                    default:
-                    description: successful operation
                 '400':
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/Client'
+                                $ref: '#/definitions/Clients'
                     description: bad request
             operationId: addClient
             description: Adds a client
@@ -369,29 +367,6 @@ paths:
             produces:
                 - application/xml
                 - application/json
-components:
-    schemas:
-        Client:
-            allOf:
-                -
-                    $ref: '#/components/schemas/Client'
-                -
-                    required:
-                        - id
-                    properties:
-                        id:
-                            format: int64
-                            type: integer
-        Error:
-            required:
-                - code
-                - message
-            properties:
-                code:
-                    format: int32
-                    type: integer
-                message:
-                    type: string
 tags:
     -
         name: order
@@ -399,7 +374,7 @@ tags:
     -
         name: clients
         description: Operations about user
-schemes:
+schemas:
     - https
     - http
 securityDefinitions:
